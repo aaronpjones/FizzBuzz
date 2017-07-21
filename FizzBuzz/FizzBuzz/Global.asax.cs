@@ -4,6 +4,8 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using FizzBuzz.App_Start;
 using FizzBuzz.Windsor;
+using FizzBuzz.Windsor.Factories;
+using FluentValidation.WebApi;
 
 namespace FizzBuzz
 {
@@ -22,6 +24,8 @@ namespace FizzBuzz
             RegisterDependencyResolver();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            SetUpFluentValidationProvider();
         }
 
         private void InstallDependencies()
@@ -31,8 +35,14 @@ namespace FizzBuzz
 
         private void RegisterDependencyResolver()
         {
-            GlobalConfiguration.Configuration.DependencyResolver = 
+            GlobalConfiguration.Configuration.DependencyResolver =
                 new WindsorDependencyResolver(_container.Kernel);
+        }
+
+        private void SetUpFluentValidationProvider()
+        {
+            FluentValidationModelValidatorProvider.Configure(GlobalConfiguration.Configuration,
+                provider => provider.ValidatorFactory = new CastleValidatorFactory(_container));
         }
     }
 }
