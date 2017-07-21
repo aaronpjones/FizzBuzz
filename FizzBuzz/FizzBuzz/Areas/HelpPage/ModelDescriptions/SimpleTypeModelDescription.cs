@@ -1,0 +1,6 @@
+namespace FizzBuzz.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}
