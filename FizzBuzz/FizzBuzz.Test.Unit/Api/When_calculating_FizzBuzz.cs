@@ -1,22 +1,26 @@
-﻿using System.Web.Http;
-using System.Web.Http.Results;
+﻿using System.Web.Http.Results;
 using FizzBuzz.Api;
 using FizzBuzz.Models;
+using FizzBuzz.Services.FizzBuzz;
+using Moq;
 using NUnit.Framework;
 
-namespace FizzBuzz.Test.Unit.Api.FizzBuzzControllerTests
+namespace FizzBuzz.Test.Unit.Api
 {
     [TestFixture]
     public class When_calculating_FizzBuzz
     {
         private IntegerRangeRequest _integerRangeRequest;
+
+        private Mock<IFizzBuzzService> _fizzBuzzServiceMock;
         private FizzBuzzController _fizzBuzzController;
 
         [SetUp]
         public void SetUp()
         {
-            _integerRangeRequest = new IntegerRangeRequest();
-            _fizzBuzzController = new FizzBuzzController();
+            _integerRangeRequest = new IntegerRangeRequest {Min = 1, Max = 2};
+            _fizzBuzzServiceMock = new Mock<IFizzBuzzService>();
+            _fizzBuzzController = new FizzBuzzController(_fizzBuzzServiceMock.Object);
         }
 
         [Test]
@@ -35,10 +39,17 @@ namespace FizzBuzz.Test.Unit.Api.FizzBuzzControllerTests
         }
 
         [Test]
-        public void Ok_content_result_returned()
+        public void FizzBuzzService_called_with_Min_and_Max_returning_FizzBuzzResponse()
         {
-            IHttpActionResult result = _fizzBuzzController.CalculateFizzBuzz(_integerRangeRequest);
-            Assert.That(((dynamic) result).Content, Is.Not.Null);
+            var fizzBuzzResponse = new FizzBuzzResponse();
+            _fizzBuzzServiceMock.Setup(m => m.CalculateFizzBuzz(_integerRangeRequest.Min, _integerRangeRequest.Max))
+                .Returns(fizzBuzzResponse);
+
+            var result =
+                _fizzBuzzController.CalculateFizzBuzz(_integerRangeRequest) as
+                    OkNegotiatedContentResult<FizzBuzzResponse>;
+
+            Assert.That(result.Content, Is.EqualTo(fizzBuzzResponse));
         }
 
         [TearDown]
