@@ -6,16 +6,16 @@ LNDT Software Engineering Test
 * Code should be SOLID and test driven
 * Rules must be configurable without changing code
 * Produce a summary showing how many times the following were output
-* * fizz
-* * buzz
-* *	fizzbuzz
-* * an integer
+> * fizz
+> * buzz
+> *	fizzbuzz
+> * an integer
 
 ## Rules:
-•	If no rule matches then output the input number
-•	If the input number is a multiple of 3 then output “fizz”
-•	If the input number is a multiple of 5 then output “buzz”
-•	If the input number is a multiple of 3 and 5 then output “fizzbuzz”
+* If no rule matches then output the input number
+* If the input number is a multiple of 3 then output “fizz”
+* If the input number is a multiple of 5 then output “buzz”
+* If the input number is a multiple of 3 and 5 then output “fizzbuzz”
 
 ## Input:  
 1,20
