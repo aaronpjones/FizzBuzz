@@ -2,7 +2,7 @@
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace FizzBuzz.Test.Unit.Validation
+namespace FizzBuzz.Test.Unit.Validation.IntegerRangeRequestValidationTests
 {
     [TestFixture]
     public class When_validating_a_IntegerRangeRequest

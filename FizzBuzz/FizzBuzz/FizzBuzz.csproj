@@ -111,11 +111,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Services\FizzBuzz\FizzBuzzService.cs" />
     <Compile Include="Services\FizzBuzz\IFizzBuzzService.cs" />
-    <Compile Include="Services\Rule\IRuleService.cs" />
-    <Compile Include="Services\Rule\BuzzRule.cs" />
-    <Compile Include="Services\Rule\FizzRule.cs" />
-    <Compile Include="Services\Rule\IRule.cs" />
-    <Compile Include="Services\Rule\RuleService.cs" />
+    <Compile Include="Services\Rules\BuzzRule.cs" />
+    <Compile Include="Services\Rules\FizzRule.cs" />
+    <Compile Include="Services\Rules\IRule.cs" />
+    <Compile Include="Services\Rules\Rule.cs" />
     <Compile Include="Validation\IntegerRangeRequestValidator.cs" />
     <Compile Include="Windsor\Factories\CastleValidatorFactory.cs" />
     <Compile Include="Windsor\Installers\RuleInstaller.cs" />

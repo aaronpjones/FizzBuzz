@@ -1,24 +1,41 @@
-﻿using FizzBuzz.Models;
-using FizzBuzz.Services.Rule;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FizzBuzz.Models;
+using FizzBuzz.Services.Rules;
 
 namespace FizzBuzz.Services.FizzBuzz
 {
     public class FizzBuzzService : IFizzBuzzService
     {
-        private readonly IRuleService _ruleService;
+        private readonly IRule[] _rules;
+        private readonly string _noMatchingRuleString;
 
-        public FizzBuzzService(IRuleService ruleService)
+        public FizzBuzzService(IRule[] rules, string noMatchingRuleString)
         {
-            _ruleService = ruleService;
+            _rules = rules;
+            _noMatchingRuleString = noMatchingRuleString;
         }
 
         public FizzBuzzResponse CalculateFizzBuzz(int min, int max)
         {
-            for (int i = min; i < max; i++)
+            var fizzBuzzResult = new Dictionary<string,string>();
+            for (int i = min; i <= max; i++)
             {
-                _ruleService.ApplyRules(i);
+                fizzBuzzResult.Add(i.ToString(), string.Join("", ApplyRules(i)));
             }
-            return new FizzBuzzResponse();
+            return new FizzBuzzResponse
+            {
+                Result = string.Join(" ", fizzBuzzResult.Select(x => x.Value != string.Empty ? x.Value : x.Key)),
+                Summary = fizzBuzzResult.GroupBy(fbr => fbr.Value).ToDictionary(fbr => fbr.Key != string.Empty ? fbr.Key : _noMatchingRuleString, fbr => fbr.Count().ToString())
+            };
+        }
+
+        private IEnumerable<string> ApplyRules(int value)
+        {
+            foreach (IRule rule in _rules.OrderBy(r => r.Order))
+            {
+                yield return rule.ApplyRule(value);
+            }
         }
     }
 }

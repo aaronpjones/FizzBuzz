@@ -2,7 +2,7 @@
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using FizzBuzz.Services.Rule;
+using FizzBuzz.Services.Rules;
 
 namespace FizzBuzz.Windsor.Installers
 {

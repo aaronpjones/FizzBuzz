@@ -2,7 +2,6 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using FizzBuzz.Services.FizzBuzz;
-using FizzBuzz.Services.Rule;
 
 namespace FizzBuzz.Windsor.Installers
 {
@@ -11,9 +10,7 @@ namespace FizzBuzz.Windsor.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IFizzBuzzService>().ImplementedBy<FizzBuzzService>()
-                .LifestylePerWebRequest());
-
-            container.Register(Component.For<IRuleService>().ImplementedBy<RuleService>()
+                .DependsOn(Dependency.OnValue("noMatchingRuleString","integer"))
                 .LifestylePerWebRequest());
         }
     }

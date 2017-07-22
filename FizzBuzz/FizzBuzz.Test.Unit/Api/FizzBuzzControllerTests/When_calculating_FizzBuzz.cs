@@ -5,7 +5,7 @@ using FizzBuzz.Services.FizzBuzz;
 using Moq;
 using NUnit.Framework;
 
-namespace FizzBuzz.Test.Unit.Api
+namespace FizzBuzz.Test.Unit.Api.FizzBuzzControllerTests
 {
     [TestFixture]
     public class When_calculating_FizzBuzz

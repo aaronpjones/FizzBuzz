@@ -6,6 +6,7 @@ using FizzBuzz.App_Start;
 using FizzBuzz.Windsor;
 using FizzBuzz.Windsor.Factories;
 using FluentValidation.WebApi;
+using Newtonsoft.Json.Serialization;
 
 namespace FizzBuzz
 {
@@ -24,6 +25,9 @@ namespace FizzBuzz
             RegisterDependencyResolver();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = 
+                new CamelCasePropertyNamesContractResolver();
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
 
             SetUpFluentValidationProvider();
         }
