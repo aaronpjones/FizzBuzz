@@ -1,6 +1,14 @@
 # FizzBuzz
 LNDT Software Engineering Test
 
+## How to use this sample
+API exposes one endpoint **'api/fizzbuzz'**
+A HttpPost can be made to this endpoint with the following request body to receive the expected json result
+```javascript
+{"min":1,max:"20"}
+```
+Any range of integers can be passed (positive and negative), a null model will be rejected, the only validation rule is that the minimum must be less than or equal to the maximum.
+
 ## Requirements:
 * Develop a .NET Web API that accepts a number range, applies a set of rules to each number in the range and returns the result as json
 * Code should be SOLID and test driven
