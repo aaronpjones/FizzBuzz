@@ -2,8 +2,8 @@
 {
     public class FizzRule : Rule
     {
-        protected override int Divisible => 3;
-        protected override string Output => "fizz";
+        public override int Divisible => 3;
+        public override string Output => "fizz";
         public override int Order => 1;
     }
 }

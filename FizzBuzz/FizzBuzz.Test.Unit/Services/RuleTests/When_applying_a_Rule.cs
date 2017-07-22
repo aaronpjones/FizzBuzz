@@ -1,28 +1,30 @@
-﻿using FizzBuzz.Test.Unit.Services.RuleTests.Rules;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace FizzBuzz.Test.Unit.Services.RuleTests
 {
     [TestFixture]
     public class When_applying_a_Rule
     {
-        private TestRule1 _testRule1;
-        private TestRuleNeg1 _testRuleNeg1;
-        private TestRule0 _testRule0;
-        static int[] TestValues = {int.MinValue, int.MaxValue, 0};
+        private static int[] _matchingRule = {-2, 0, 2};
+        private static int[] _notMatchingRule = { -1, 1 };
+        private TestRule _testRule;
 
         [SetUp]
         public void SetUp()
         {
-            _testRule1 = new TestRule1();
-            _testRuleNeg1 = new TestRuleNeg1();
-            _testRule0 = new TestRule0();
+            _testRule = new TestRule();
         }
 
-        [Test]
-        public void foo()
+        [TestCaseSource(nameof(_matchingRule))]
+        public void the_interger_matches_the_rule_I_expect_Output(int value)
         {
-            //_testRule1.ApplyRule()
+            Assert.That(_testRule.ApplyRule(value), Is.EqualTo(_testRule.Output));
+        }
+
+        [TestCaseSource(nameof(_notMatchingRule))]
+        public void the_interger_does_not_match_the_rule_I_expect_null(int value)
+        {
+            Assert.That(_testRule.ApplyRule(value), Is.Null);
         }
     }
 }

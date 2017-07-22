@@ -25,17 +25,26 @@ namespace FizzBuzz.Services.FizzBuzz
             }
             return new FizzBuzzResponse
             {
-                Result = string.Join(" ", fizzBuzzResult.Select(x => x.Value != string.Empty ? x.Value : x.Key)),
-                Summary = fizzBuzzResult.GroupBy(fbr => fbr.Value).ToDictionary(fbr => fbr.Key != string.Empty ? fbr.Key : _noMatchingRuleString, fbr => fbr.Count().ToString())
+                Result = GetFizzBuzzResponseResult(fizzBuzzResult),
+                Summary = GetFizzBuzzResponseSummary(fizzBuzzResult)
             };
         }
 
         private IEnumerable<string> ApplyRules(int value)
         {
-            foreach (IRule rule in _rules.OrderBy(r => r.Order))
-            {
-                yield return rule.ApplyRule(value);
-            }
+            return _rules.OrderBy(r => r.Order).Select(rule => rule.ApplyRule(value));
+        }
+
+        private string GetFizzBuzzResponseResult(Dictionary<string,string> fizzBuzzResult)
+        {
+            return string.Join(" ", fizzBuzzResult.Select(x => x.Value != string.Empty ? x.Value : x.Key));
+        }
+
+        private Dictionary<string, string> GetFizzBuzzResponseSummary(Dictionary<string, string> fizzBuzzResult)
+        {
+            return fizzBuzzResult.GroupBy(fbr => fbr.Value)
+                .ToDictionary(fbr => fbr.Key != string.Empty ? fbr.Key : _noMatchingRuleString,
+                    fbr => fbr.Count().ToString());
         }
     }
 }

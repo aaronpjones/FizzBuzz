@@ -2,9 +2,9 @@
 {
     public abstract class Rule : IRule
     {
-        protected abstract int Divisible { get; }
+        public abstract int Divisible { get; }
 
-        protected abstract string Output { get; }
+        public abstract string Output { get; }
 
         public abstract int Order { get; }
 
